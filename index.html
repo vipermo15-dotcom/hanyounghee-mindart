@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MIND'S EYE</title>
+</head>
+<body>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
+  /* Design system reference: VoltAgent/awesome-design-md — airbnb
+     (warm consumer marketplace: pure-white canvas, single brand accent,
+     photography/story trusted over typographic weight, soft rounded shapes,
+     8px base spacing to a 64px section rhythm, one restrained shadow tier).
+     Accent re-themed from Rausch #ff385c to a camellia red for this subject —
+     everything else (roles, radii, spacing, shadow) follows the source system. */
+  :root {
+    --canvas: #FFFFFF;
+    --surface-soft: #F7F7F7;
+    --surface-strong: #F2F2F2;
+    --ink: #222222;
+    --body-text: #3F3F3F;
+    --muted: #6A6A6A;
+    --muted-soft: #929292;
+    --hairline: #DDDDDD;
+    --hairline-soft: #EBEBEB;
+    --border-strong: #C1C1C1;
+    --primary: #A6332A;
+    --primary-active: #8A2A22;
+    --primary-disabled: #EAD1CC;
+    --on-primary: #FFFFFF;
+    --focus: #A6332A;
+    --shadow-card: 0 0 0 1px rgba(0,0,0,.02), 0 2px 6px rgba(0,0,0,.04), 0 4px 8px rgba(0,0,0,.1);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --canvas: #17140F;
+      --surface-soft: #221D17;
+      --surface-strong: #2A241C;
+      --ink: #F3ECE3;
+      --body-text: #D8CCBE;
+      --muted: #AFA08D;
+      --muted-soft: #8A7B69;
+      --hairline: #3A2F22;
+      --hairline-soft: #2C2419;
+      --border-strong: #4A3D2C;
+      --primary: #E0745F;
+      --primary-active: #C85F4C;
+      --primary-disabled: #4A2C22;
+      --on-primary: #1C1712;
+      --focus: #E0745F;
+      --shadow-card: 0 0 0 1px rgba(0,0,0,.3), 0 2px 6px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --canvas: #17140F; --surface-soft: #221D17; --surface-strong: #2A241C;
+    --ink: #F3ECE3; --body-text: #D8CCBE; --muted: #AFA08D; --muted-soft: #8A7B69;
+    --hairline: #3A2F22; --hairline-soft: #2C2419; --border-strong: #4A3D2C;
+    --primary: #E0745F; --primary-active: #C85F4C; --primary-disabled: #4A2C22;
+    --on-primary: #1C1712; --focus: #E0745F;
+    --shadow-card: 0 0 0 1px rgba(0,0,0,.3), 0 2px 6px rgba(0,0,0,.3), 0 4px 8px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', Roboto, sans-serif;
+    line-height: 1.6;
+    padding-inline: 20px;
+    transition: background .3s, color .3s;
+  }
+  /* accessibility mode: large text + higher contrast, per this project's brand commitment */
+  body.a11y-big { font-size: 1.24em; line-height: 1.85; }
+  body.a11y-contrast {
+    --canvas: #FFFFFF; --ink: #000000; --body-text: #000000; --muted: #1A1A1A;
+    --primary: #7A1F14; --primary-disabled: #E6C8C2; --hairline: #000000; --hairline-soft: #333333;
+  }
+  @media (prefers-color-scheme: dark) {
+    body.a11y-contrast:not([data-theme="light"]) {
+      --canvas: #000000; --ink: #FFFFFF; --body-text: #FFFFFF; --muted: #EDEDED;
+      --primary: #FF9478; --hairline: #FFFFFF; --hairline-soft: #999999;
+    }
+  }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 600; }
+  h1.serif-accent, .serif-accent { font-family: 'Noto Serif KR', Georgia, 'Nanum Myeongjo', serif; }
+  p { margin: 0; }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+  ::selection { background: var(--primary-disabled); }
+  *:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  header.top-nav {
+    position: sticky; top: env(safe-area-inset-top, 0px);
+    background: color-mix(in srgb, var(--canvas) 92%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--hairline);
+    z-index: 10;
+    min-height: 80px;
+    display: flex; align-items: center;
+  }
+  .top-inner {
+    max-width: 760px; margin: 0 auto; width: 100%;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px; padding-block: 12px; padding-inline: 20px;
+  }
+  .wordmark {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700; font-size: 16px; letter-spacing: .02em;
+    color: var(--ink);
+  }
+  .icon-button-outline {
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    background: var(--canvas); border: 1px solid var(--hairline); color: var(--ink);
+    padding: 10px 16px; border-radius: 9999px; cursor: pointer; white-space: nowrap;
+    height: 40px;
+  }
+  .icon-button-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+  .preview-flag {
+    max-width: 760px; margin: 16px auto 0; padding-inline: 20px;
+  }
+  .preview-flag .inner {
+    background: var(--surface-soft);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 13px; color: var(--muted);
+  }
+  .preview-flag strong { color: var(--ink); }
+
+  section { padding-block: 64px; }
+  section + section { border-top: 1px solid var(--hairline-soft); }
+
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--primary);
+  }
+  .hero h1 {
+    font-size: clamp(30px, 5.4vw, 46px);
+    margin-top: 14px; font-weight: 600; line-height: 1.22;
+  }
+  .hero .sub { margin-top: 18px; font-size: 17px; color: var(--body-text); max-width: 58ch; line-height: 1.6; }
+  .hero .cta-row { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--primary); color: var(--on-primary);
+    font-weight: 500; font-size: 16px;
+    padding: 14px 24px; border-radius: 8px; height: 48px;
+    text-decoration: none; border: 1px solid var(--primary);
+  }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--canvas); color: var(--ink);
+    font-weight: 500; font-size: 16px;
+    padding: 13px 23px; border-radius: 8px; height: 48px;
+    text-decoration: none; border: 1px solid var(--ink);
+  }
+
+  h2.section-title { font-size: 21px; font-weight: 700; margin-top: 8px; }
+  .section-sub { margin-top: 14px; color: var(--muted); max-width: 60ch; font-size: 15px; line-height: 1.65; }
+
+  .quote-block {
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-top: 28px;
+  }
+  .quote-block p.q { font-family: 'Noto Serif KR', serif; font-size: 18px; font-style: italic; color: var(--ink); line-height: 1.55; }
+  .quote-block p.cite { margin-top: 14px; font-size: 13px; color: var(--muted); }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
+  .badge {
+    flex: 1 1 200px;
+    background: var(--canvas);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 20px;
+    transition: box-shadow .15s;
+  }
+  .badge:hover { box-shadow: var(--shadow-card); }
+  .badge .k { font-size: 22px; color: var(--primary); }
+  .badge h3 { font-size: 15px; margin-top: 10px; font-weight: 700; }
+  .badge p { margin-top: 6px; font-size: 14px; color: var(--muted); line-height: 1.55; }
+
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .swatch {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+    background: var(--canvas);
+    transition: box-shadow .15s;
+  }
+  .swatch:hover { box-shadow: var(--shadow-card); }
+  .swatch .art { aspect-ratio: 1/1; background: var(--g); position: relative; }
+  .swatch .art .flag {
+    position: absolute; top: 10px; left: 10px;
+    background: var(--canvas); color: var(--ink);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 9999px;
+  }
+  .swatch .cap { padding: 12px 14px; font-size: 14px; font-weight: 600; }
+  .swatch .cap .tag { display: block; font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+
+  form.waitlist {
+    margin-top: 28px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+    background: var(--surface-soft);
+    border: 1px solid var(--hairline);
+    border-radius: 14px;
+    padding: 18px;
+  }
+  form.waitlist input {
+    flex: 1 1 220px; font: inherit; font-size: 16px;
+    padding: 14px 12px; border-radius: 8px;
+    border: 1px solid var(--hairline); background: var(--canvas); color: var(--ink);
+    height: 48px;
+  }
+  form.waitlist input:focus { border-color: var(--ink); border-width: 2px; }
+  form.waitlist button {
+    font: inherit; font-weight: 500; font-size: 16px;
+    background: var(--primary); color: var(--on-primary);
+    border: none; border-radius: 8px; padding: 0 22px; height: 48px; cursor: pointer;
+  }
+  .form-note { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .form-ok { margin-top: 14px; font-size: 14px; color: var(--primary); font-weight: 600; }
+
+  footer { padding-block: 48px 64px; font-size: 13px; color: var(--muted); }
+  footer .wrap { display: flex; flex-direction: column; gap: 6px; padding-inline: 20px; }
+
+  .exhibit-list { margin-top: 24px; display: flex; flex-direction: column; gap: 0; }
+  .exhibit-row {
+    display: flex; justify-content: space-between; gap: 16px;
+    padding-block: 14px; border-top: 1px solid var(--hairline-soft);
+    font-size: 14px;
+  }
+  .exhibit-row:last-child { border-bottom: 1px solid var(--hairline-soft); }
+  .exhibit-row .title { font-weight: 600; }
+  .exhibit-row .venue { color: var(--muted); text-align: right; white-space: nowrap; }
+  .press-note {
+    margin-top: 16px; font-size: 13px; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .press-note .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--primary); flex: none; }
+
+  @media (max-width: 480px) {
+    section { padding-block: 40px; }
+    .top-inner { padding-inline: 16px; gap: 8px; }
+    .icon-button-outline { padding: 8px 12px; font-size: 13px; height: 36px; }
+    .wordmark { font-size: 15px; }
+    main.wrap, .preview-flag, footer .wrap { padding-inline: 16px; }
+    .quote-block { padding: 20px; }
+    form.waitlist { padding: 14px; }
+    form.waitlist button { width: 100%; }
+    .exhibit-row { flex-direction: column; gap: 2px; }
+    .exhibit-row .venue { text-align: left; white-space: normal; }
+  }
+  @media (max-width: 360px) {
+    .icon-button-outline { padding: 7px 10px; font-size: 12px; }
+    .wordmark { font-size: 14px; }
+    .top-inner { justify-content: center; }
+  }
+</style>
+
+<header class="top-nav">
+  <div class="top-inner">
+    <span class="wordmark">MIND'S EYE</span>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+      <button class="icon-button-outline" id="readAloud" type="button" aria-pressed="false">🔊 전체 읽어주기</button>
+      <button class="icon-button-outline" id="a11yToggle" type="button" aria-pressed="false">큰 글씨·고대비 보기</button>
+    </div>
+  </div>
+</header>
+
+<div class="preview-flag">
+  <div class="inner">
+    <strong>미리보기 페이지입니다.</strong> 아직 공개되지 않았으며, 판매나 결제 기능은 포함되어 있지 않습니다. 작가님 확인 후 정식 내용으로 교체될 예정입니다.
+  </div>
+</div>
+
+<main class="wrap" style="padding-inline:20px;">
+  <section class="hero">
+    <p class="eyebrow">MIND ART · GENESIS COLLECTION 01 · 공개 예정</p>
+    <h1 class="serif-accent">마음의 눈으로<br>본 세상</h1>
+    <p class="sub">한영희 작가가 오랜 시간 그려온 풍경과 자연의 그림들을, 소장하고 곁에 둘 수 있는 방식으로 소개합니다. 이 자리는 투자를 위한 곳이 아니라, 한 사람의 시선을 오래 들여다보는 자리입니다.</p>
+    <div class="cta-row">
+      <a class="btn-primary" href="#waitlist">공개 소식 받아보기</a>
+      <a class="btn-secondary" href="#story">작가 이야기 보기</a>
+    </div>
+  </section>
+
+  <section id="story">
+    <p class="eyebrow">작가 이야기</p>
+    <h2 class="section-title">한영희</h2>
+    <p class="section-sub">
+      오랫동안 다른 길을 걸어오다, 어느 날부터 그림으로 세상을 다시 그리기 시작했습니다.
+      여러 차례의 개인전을 통해 일상과 자연, 사람의 감정을 주제로 한 작품을 선보여 왔으며,
+      한국장애인미술협회 소속 작가입니다.
+    </p>
+    <div class="exhibit-list">
+      <div class="exhibit-row"><span class="title">마음의 눈, 마음의 빛</span><span class="venue">수원 · 고양(갤러리 비상) · 양평</span></div>
+      <div class="exhibit-row"><span class="title">마음으로 본 세상, 빛으로 남긴 순간</span><span class="venue">개인전</span></div>
+      <div class="exhibit-row"><span class="title">마음의 눈이 머문 자리</span><span class="venue">북수원도서관</span></div>
+    </div>
+    <p class="press-note"><span class="dot"></span>여러 언론에 소개된 작가입니다 (미리보기 — 정확한 표기는 작가님 확인 후 확정)</p>
+    <div class="quote-block">
+      <p class="q">"딸이 찍어서 보내준 사진 속 한라산을, 손주들과 자주 걷던 바닷길 위에 겹쳐 그렸습니다."</p>
+      <p class="cite">— 작가 인터뷰 영상 중, 작품 제작 과정을 설명하며</p>
+    </div>
+    <div class="badge-row">
+      <div class="badge">
+        <div class="k">✎</div>
+        <h3>저작권은 작가님 것</h3>
+        <p>소장은 가능하지만, 저작권은 언제나 작가님께 남습니다.</p>
+      </div>
+      <div class="badge">
+        <div class="k">◎</div>
+        <h3>투자 상품이 아닙니다</h3>
+        <p>가격이 오르내리는 상품이 아니라, 소장의 경험을 위한 자리입니다.</p>
+      </div>
+      <div class="badge">
+        <div class="k">✓</div>
+        <h3>사람이 확인합니다</h3>
+        <p>작품 설명과 이야기는 AI가 짐작해 쓰지 않고, 작가님이 직접 확인한 내용만 담습니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="collection">
+    <p class="eyebrow">공개 예정 작품</p>
+    <h2 class="section-title">MIND'S EYE — Genesis 01</h2>
+    <p class="section-sub">
+      이미 여러 전시에서 선보이신 작품들 중 대표작을 모을 예정입니다. 아래는 실제 작품 이미지가 아니라,
+      준비 중인 이야기의 색감만 미리 담은 자리이며, 실제 이미지는 작가님 확인 후 채워집니다.
+    </p>
+    <div class="swatch-grid">
+      <div class="swatch">
+        <div class="art" style="--g: linear-gradient(160deg, #7a9e8e, #3f5c6b);"><span class="flag">준비 중</span></div>
+        <div class="cap">바닷길과 한라산<span class="tag">이야기 준비 중</span></div>
+      </div>
+      <div class="swatch">
+        <div class="art" style="--g: linear-gradient(160deg, #f3c8d1, #e8a7b9);"><span class="flag">준비 중</span></div>
+        <div class="cap">벚꽃<span class="tag">이야기 준비 중</span></div>
+      </div>
+      <div class="swatch">
+        <div class="art" style="--g: linear-gradient(160deg, #e4b74a, #c97b3d);"><span class="flag">준비 중</span></div>
+        <div class="cap">할머니의 꽃밭<span class="tag">이야기 준비 중</span></div>
+      </div>
+      <div class="swatch">
+        <div class="art" style="--g: linear-gradient(160deg, #f7d9c4, #e0a98c);"><span class="flag">준비 중</span></div>
+        <div class="cap">엄마 생각<span class="tag">이야기 준비 중</span></div>
+      </div>
+      <div class="swatch">
+        <div class="art" style="--g: linear-gradient(160deg, #a6332a, #5c1f16);"><span class="flag">준비 중</span></div>
+        <div class="cap">동백꽃<span class="tag">이야기 준비 중</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="waitlist">
+    <p class="eyebrow">공개 소식 받아보기</p>
+    <h2 class="section-title">먼저 알려드릴게요</h2>
+    <p class="section-sub">정식 공개 전, 작품과 이야기가 준비되는 과정을 가장 먼저 전해드립니다.</p>
+    <form class="waitlist" id="waitlistForm">
+      <input id="waitlistEmail" type="email" required placeholder="이메일 주소" aria-label="이메일 주소">
+      <button type="submit">알림 신청</button>
+    </form>
+    <p class="form-note">※ 이 페이지는 검토용 미리보기라, 지금 남기신 이메일은 저장되지 않습니다. 실제 공개 시 정식 신청 페이지로 대체됩니다.</p>
+    <p class="form-ok" id="formOk" hidden>신청 의사가 확인되었습니다. (미리보기 — 실제 발송되지 않음)</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>MIND ART · MIND'S EYE — GENESIS COLLECTION 01</p>
+    <p>이 페이지는 내부 검토·작가 확인용 미리보기이며, 실제 서비스 공개 전까지 외부에 공식적으로 공유되지 않습니다.</p>
+    <p>작가 소개 내용은 공개된 언론 보도와 전시 정보를 참고해 작성했으며, 작가님 확인을 거쳐 최종 확정됩니다.</p>
+    <p><a href="slides.html" style="color:var(--primary); text-decoration:underline;">10월 6일 미팅 자료 보기 →</a></p>
+    <p style="margin-top:8px; color:var(--muted-soft);">Design reference: VoltAgent/awesome-design-md · airbnb (accent re-themed)</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var body = document.body;
+    var btn = document.getElementById('a11yToggle');
+    var STORE_KEY = 'mindseye_a11y';
+
+    function apply(state) {
+      body.classList.toggle('a11y-big', !!state);
+      body.classList.toggle('a11y-contrast', !!state);
+      btn.setAttribute('aria-pressed', state ? 'true' : 'false');
+      btn.textContent = state ? '기본 화면으로' : '큰 글씨·고대비 보기';
+    }
+
+    var initial = false;
+    try { initial = localStorage.getItem(STORE_KEY) === '1'; } catch (e) {}
+    apply(initial);
+
+    btn.addEventListener('click', function () {
+      var next = !body.classList.contains('a11y-big');
+      apply(next);
+      try { localStorage.setItem(STORE_KEY, next ? '1' : '0'); } catch (e) {}
+    });
+
+    var form = document.getElementById('waitlistForm');
+    var ok = document.getElementById('formOk');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      ok.hidden = false;
+      form.reset();
+    });
+
+    // 전체 읽어주기 — 브라우저 내장 음성(Web Speech API), 별도 파일·용량 제한 없이 항상 동작
+    (function () {
+      var readBtn = document.getElementById('readAloud');
+      if (!readBtn || !('speechSynthesis' in window)) {
+        if (readBtn) readBtn.hidden = true;
+        return;
+      }
+      var synth = window.speechSynthesis;
+      var speaking = false;
+
+      function pickKoreanVoice() {
+        var voices = synth.getVoices() || [];
+        return voices.find(function (v) { return v.lang && v.lang.toLowerCase().indexOf('ko') === 0; }) || null;
+      }
+
+      function collectText() {
+        var main = document.querySelector('main.wrap');
+        return main ? main.innerText.replace(/\s+/g, ' ').trim() : document.body.innerText;
+      }
+
+      function stop() {
+        synth.cancel();
+        speaking = false;
+        readBtn.textContent = '🔊 전체 읽어주기';
+        readBtn.setAttribute('aria-pressed', 'false');
+      }
+
+      function start() {
+        var text = collectText();
+        if (!text) return;
+        var utter = new SpeechSynthesisUtterance(text);
+        var voice = pickKoreanVoice();
+        if (voice) utter.voice = voice;
+        utter.lang = 'ko-KR';
+        utter.rate = 0.95;
+        utter.onend = stop;
+        utter.onerror = stop;
+        synth.cancel();
+        synth.speak(utter);
+        speaking = true;
+        readBtn.textContent = '⏸ 읽기 멈추기';
+        readBtn.setAttribute('aria-pressed', 'true');
+      }
+
+      readBtn.addEventListener('click', function () {
+        if (speaking) { stop(); } else { start(); }
+      });
+
+      // 일부 브라우저는 voiceschanged 이후에만 한국어 음성 목록이 채워짐
+      if (typeof synth.onvoiceschanged !== 'undefined') {
+        synth.onvoiceschanged = function () {};
+      }
+    })();
+  })();
+</script>
+
+</body>
+</html>
