@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NFT가 뭔가요? — 한영희 작가님을 위한 쉬운 설명</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+  :root {
+    --ink: #241E19; --muted: #6E6259; --line: #E3D9C9; --card: #FFFFFF;
+    --bg: #FAF6EF; --dark: #2A211B; --dark-ink: #F3ECE3; --dark-muted: #D8CCBE;
+    --accent: #A6332A; --accent-soft: #D9A79A;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--dark); }
+  body { font-family: 'Noto Sans KR', -apple-system, sans-serif; color: var(--ink); overscroll-behavior-y: none; }
+  .deck { height: 100vh; height: 100dvh; overflow-y: scroll; scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+  section.slide {
+    height: 100vh; height: 100dvh; scroll-snap-align: start; scroll-snap-stop: always;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 56px 24px; position: relative; overflow: hidden;
+  }
+  .inner { max-width: 900px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; gap: 26px; }
+  .light { background: var(--bg); color: var(--ink); }
+  .dark { background: var(--dark); color: var(--dark-ink); }
+  h1, h2 { font-family: 'Noto Serif KR', serif; margin: 0; text-wrap: balance; line-height: 1.3; }
+  h1 { font-size: clamp(32px, 6vw, 58px); font-weight: 700; }
+  h2 { font-size: clamp(26px, 4.4vw, 40px); font-weight: 600; }
+  h3 { font-size: clamp(19px, 2.6vw, 22px); font-weight: 700; margin: 0; }
+  p { margin: 0; line-height: 1.85; font-size: clamp(17px, 2.6vw, 22px); }
+  .eyebrow { font-size: 15px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
+  .dark .eyebrow { color: var(--accent-soft); }
+  .muted { color: var(--muted); }
+  .dark .muted { color: var(--dark-muted); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px 28px; display: flex; flex-direction: column; gap: 10px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .row { display: flex; gap: 18px; align-items: flex-start; }
+  .num { font-weight: 700; color: var(--accent); font-size: 24px; flex: none; width: 40px; }
+  .badge { display: inline-block; font-size: 14px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 4px 12px; border-radius: 999px; }
+  .banner { background: var(--dark); color: var(--dark-ink); border-radius: 20px; padding: 32px 36px; display: flex; flex-direction: column; gap: 10px; }
+  .banner .lead { color: var(--accent-soft); font-weight: 700; font-size: 16px; }
+  .press-row { display: flex; flex-direction: column; gap: 12px; }
+  .press-item { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
+  .press-item .src { font-size: 14px; color: var(--muted); font-weight: 700; margin-bottom: 4px; display: block; }
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step { display: flex; gap: 16px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
+  .navdots { position: fixed; right: 16px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 20; }
+  .navdots button { width: 8px; height: 8px; border-radius: 999px; border: none; background: #a89c8a; opacity: .5; cursor: pointer; padding: 0; }
+  .navdots button.active { opacity: 1; background: var(--accent); width: 10px; height: 10px; }
+  .navhint { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); font-size: 12px; color: #a89c8a; z-index: 20; background: rgba(0,0,0,.35); padding: 6px 14px; border-radius: 999px; }
+  .backlink { position: fixed; left: 18px; top: 18px; z-index: 20; font-size: 13px; color: #a89c8a; text-decoration: none; background: rgba(0,0,0,.35); padding: 6px 12px; border-radius: 999px; }
+  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } .navdots { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<section id="n1" class="slide dark"><div class="inner">
+  <p class="eyebrow">한영희 작가님 · 남편분과 함께 봐주세요</p>
+  <h1>NFT가 뭔가요?</h1>
+  <p class="muted">어렵지 않게, 천천히 설명드리겠습니다.<br>국내에서 실제로 있었던 이야기들도 함께 보여드릴게요.</p>
+</div></section>
+
+<section id="n2" class="slide light"><div class="inner">
+  <p class="eyebrow">가장 쉬운 설명</p>
+  <h2>그림에 붙이는<br>"진짜예요" 확인증입니다</h2>
+  <p>그림을 파실 때, 그림 자체는 그대로 두고 "이 그림은 진짜이고, 지금은 누가 소장하고 있다"는 것을 증명하는 디지털 확인증을 함께 드리는 것입니다.</p>
+  <div class="banner">
+    <p class="lead">꼭 기억하실 것</p>
+    <p style="font-size:26px; font-weight:600">이것은 주식이나 투자가 아닙니다.</p>
+    <p class="muted">사고팔아서 돈을 불리는 것이 목적이 아니라, "누군가 이 그림을 소중히 소장하고 있다"는 것을 보여주는 방법입니다.</p>
+  </div>
+</div></section>
+
+<section id="n3" class="slide light"><div class="inner">
+  <p class="eyebrow">국내 사례 ①</p>
+  <span class="badge">굿즈·상품으로</span>
+  <h2>그림이 여행가방과<br>첼로 케이스가 되었어요</h2>
+  <p>발달장애 작가들의 그림을 여행용 캐리어, 첼로 케이스 같은 실제 물건에 담아 판매하는 곳이 있습니다. 전시와 대여 사업도 함께 하며, 판매 수익을 작가들에게 나누어 드립니다.</p>
+  <p class="muted">스프링샤인 · 이랑아트허브 등 국내 실제 사례</p>
+</div></section>
+
+<section id="n4" class="slide light"><div class="inner">
+  <p class="eyebrow">국내 사례 ②</p>
+  <span class="badge">NFT 확인증으로</span>
+  <h2>발달장애 작가의 그림이<br>디지털 확인증으로 처음 발행됐어요</h2>
+  <p>국내 큰 금융회사(두나무)가 사회적기업 베어베터와 함께, 발달장애 작가님들의 그림 3점을 디지털 확인증(NFT)으로 만들어 판매했습니다. 판매 수익은 작가님들의 안정적인 창작 활동을 위한 기금으로 쓰였습니다.</p>
+  <p class="muted">두나무 × 베어베터, 2022년 장애인의 날</p>
+</div></section>
+
+<section id="n5" class="slide light"><div class="inner">
+  <p class="eyebrow">국내 사례 ③</p>
+  <span class="badge">나라에서 법으로 정한 제도</span>
+  <h2>공공기관 847곳이<br>의무적으로 구매합니다</h2>
+  <p>국가와 지자체, 공공기관 847곳은 매년 창작물을 구매할 때, 그 금액의 <b>3% 이상</b>을 장애예술인 작품으로 구매해야 합니다. 법으로 정해진 제도입니다.</p>
+  <p class="muted">「장애예술인 문화예술활동 지원에 관한 법률」에 근거, 2024년 시행</p>
+</div></section>
+
+<section id="n6" class="slide light"><div class="inner">
+  <p class="eyebrow">언론에 나온 이야기</p>
+  <h2>여러 매체가<br>이 이야기들을 다뤘습니다</h2>
+  <div class="press-row">
+    <div class="press-item"><span class="src">KBC광주방송</span>"3%의 놀라운 기적" — 우선구매제도 시행 이후의 변화</div>
+    <div class="press-item"><span class="src">SK텔레콤 뉴스룸</span>"편견 걷어내면 예술 보여" — 발달장애 예술가의 재능을 알리는 브랜드 이야기</div>
+    <div class="press-item"><span class="src">연합뉴스</span>발달장애 작가의 그림과 이야기를 담은 그림책 출간, 판매 수익은 작가들에게</div>
+  </div>
+</div></section>
+
+<section id="n7" class="slide light"><div class="inner">
+  <p class="eyebrow">정리해드리면</p>
+  <h2>장애가 있는 작가님들이<br>수익을 만드는 다섯 가지 방법</h2>
+  <div class="steps">
+    <div class="step"><span class="num">1</span><p>전문 에이전시가 대신 판매·계약을 도와드리는 방법</p></div>
+    <div class="step"><span class="num">2</span><p>그림을 가방, 도자기 같은 실제 상품으로 만들어 파는 방법</p></div>
+    <div class="step"><span class="num">3</span><p>기업이 그림을 정식으로 빌려 쓰고 대가를 지불하는 방법</p></div>
+    <div class="step"><span class="num">4</span><p>공공기관이 법에 따라 우선적으로 구매하는 방법</p></div>
+    <div class="step"><span class="num">5</span><p>디지털 확인증(NFT)으로 소장할 수 있게 하는 방법</p></div>
+  </div>
+</div></section>
+
+<section id="n8" class="slide light"><div class="inner">
+  <p class="eyebrow">한영희 작가님께는</p>
+  <h2>이 두 가지를<br>함께 해보시길 제안드립니다</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>④ 공공기관 우선구매</h3>
+      <p class="muted">법으로 정해진 안전한 제도입니다. 이음아트플랫폼 등록 여부를 먼저 확인해드리겠습니다.</p>
+    </div>
+    <div class="card">
+      <h3>⑤ 디지털 소장 확인증</h3>
+      <p class="muted">투자가 아니라 소장 경험으로, MIND ART에서 천천히 준비하고 있습니다.</p>
+    </div>
+  </div>
+  <p class="muted">두 가지 모두 서두르지 않고, 작가님께서 편하실 때 하나씩 확인해가며 진행하겠습니다.</p>
+</div></section>
+
+<section id="n9" class="slide dark"><div class="inner">
+  <p class="eyebrow">다음 이야기</p>
+  <h1>편하실 때<br>또 말씀 나눠요</h1>
+  <p class="muted">궁금하신 점은 언제든 편하게 여쭤봐 주세요.<br>감사합니다.</p>
+</div></section>
+
+</div>
+
+<a href="index.html" class="backlink">← MIND'S EYE</a>
+<div class="navdots" id="navdots"></div>
+<div class="navhint" id="navhint">↑↓ 또는 스와이프로 이동 · 1 / 9</div>
+
+<script>
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dotsWrap = document.getElementById('navdots');
+  var hint = document.getElementById('navhint');
+  var deck = document.getElementById('deck');
+
+  slides.forEach(function (s) {
+    var b = document.createElement('button');
+    b.addEventListener('click', function () { s.scrollIntoView({ behavior: 'smooth' }); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function updateActive() {
+    var mid = deck.scrollTop + deck.clientHeight / 2;
+    var idx = 0;
+    slides.forEach(function (s, i) { if (s.offsetTop <= mid) idx = i; });
+    dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+    hint.textContent = '↑↓ 또는 스와이프로 이동 · ' + (idx + 1) + ' / ' + slides.length;
+  }
+  deck.addEventListener('scroll', updateActive);
+  updateActive();
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== ' ') return;
+    e.preventDefault();
+    var mid = deck.scrollTop + deck.clientHeight / 2;
+    var idx = 0;
+    slides.forEach(function (s, i) { if (s.offsetTop <= mid) idx = i; });
+    var next = e.key === 'ArrowUp' ? Math.max(0, idx - 1) : Math.min(slides.length - 1, idx + 1);
+    slides[next].scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
