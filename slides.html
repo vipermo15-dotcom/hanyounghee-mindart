@@ -57,7 +57,28 @@
   .navdots button { width: 8px; height: 8px; border-radius: 999px; border: none; background: #a89c8a; opacity: .5; cursor: pointer; padding: 0; }
   .navdots button.active { opacity: 1; background: var(--accent); width: 10px; height: 10px; }
   .navhint { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); font-size: 12px; color: #a89c8a; z-index: 20; background: rgba(0,0,0,.35); padding: 6px 14px; border-radius: 999px; }
+  .highlight h3, .highlight h2 { color: var(--dark-ink); }
+  .banner .muted, .banner p.muted { color: var(--dark-muted); }
   @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } .grid4 { grid-template-columns: 1fr 1fr; } .navdots { display: none; } }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page { size: A4; margin: 10mm; }
+    html, body { height: auto; }
+    .deck { height: auto; overflow: visible; scroll-snap-type: none; }
+    section.slide {
+      height: auto; min-height: 277mm; width: 190mm; margin: 0 auto;
+      page-break-after: always; break-after: page;
+      justify-content: flex-start; padding-top: 24mm;
+    }
+    section.slide:last-child { page-break-after: auto; }
+    .navdots, .navhint, .backlink { display: none !important; }
+    .card, .badge-row > *, .press-item, .step, .flow, .grid2 > *, .grid4 > * { page-break-inside: avoid; break-inside: avoid; }
+    section.slide { padding-top: 16mm; }
+    .inner { gap: 16px; }
+    .card.row { padding: 12px 20px; }
+    .card.row p { font-size: 18px; }
+  }
 </style>
 </head>
 <body>
@@ -78,13 +99,30 @@
 </div></section>
 
 <section id="s3" class="slide light"><div class="inner">
-  <p class="eyebrow">이 프로젝트는 무엇인가요</p>
-  <h2>MIND ART</h2>
-  <p>작가님의 그림을 온라인에서 소개하고, 원하시는 분들이<br>"디지털 소장 증서(NFT)"라는 형태로 그림을 소장할 수 있게 하는<br>작은 온라인 공간을 만드는 일입니다.</p>
+  <p class="eyebrow">먼저 말씀드립니다</p>
+  <h2>지금은 작가님을 알리는 일부터,<br>NFT는 나중에 천천히</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>지금 합니다</h3>
+      <p>작가님의 작품과 활동을 소개하는 웹페이지를 만들어 알립니다.</p>
+      <p>공공기관에 작가님을 알리는 방법도 알아봅니다.</p>
+    </div>
+    <div class="card highlight">
+      <h3>나중에 생각합니다</h3>
+      <p class="muted">그림 소장 확인증(NFT)은 준비가 되었을 때, 작가님이 원하실 때 그때 하셔도 됩니다.</p>
+    </div>
+  </div>
+  <p class="muted">서두르지 않습니다. 결정하실 것은 오늘 없습니다.</p>
+</div></section>
+
+<section id="s3b" class="slide light"><div class="inner">
+  <p class="eyebrow">이름이 낯설어서 먼저 설명드립니다</p>
+  <h2>그림에 붙이는<br>"진짜예요" 확인증입니다</h2>
+  <p>그림은 그대로 작가님 것이고, 저작권도 그대로 작가님께 있습니다. 그림을 소장하는 분께 "이 그림은 진짜이고, 제가 소장하고 있다"는 확인증만 디지털로 드리는 것입니다.</p>
   <div class="banner">
-    <p class="lead">가장 중요한 것부터 말씀드립니다</p>
-    <p class="big">이것은 투자 상품이 아닙니다.</p>
-    <p class="muted">주식이나 돈을 불리는 수단이 아니라, "이 그림을 내가 소장하고 있다"는 것을 증명하는 디지털 증서에 가깝습니다.</p>
+    <p class="lead">주식이나 펀드와는 전혀 다릅니다</p>
+    <p class="big">돈을 불리는 투자가 아닙니다.</p>
+    <p class="muted">그림을 소중히 소장한다는 것을 보여주는 방법입니다.</p>
   </div>
 </div></section>
 
@@ -108,7 +146,7 @@
 </div></section>
 
 <section id="s5" class="slide light"><div class="inner">
-  <p class="eyebrow">작가님께 제안하는 것</p>
+  <p class="eyebrow">나중에 천천히 제안드리는 것</p>
   <h2>MIND'S EYE 컬렉션</h2>
   <p>작가님의 「마음의 눈」 전시 제목에서 이름을 따온 첫 작품 모음입니다.<br>45점 중 10점을 대표작으로 골라 온라인에 소개하고 싶습니다.</p>
   <div class="grid4">
@@ -141,21 +179,31 @@
   <div class="card highlight row"><span class="num">6</span><p><b>예전 전시 때 찍어두신 사진이 혹시 남아있을까요?</b> ★가장 궁금한 것</p></div>
 </div></section>
 
+<section id="s7b" class="slide light"><div class="inner">
+  <p class="eyebrow">6일에 준비하실 것</p>
+  <h2>있으시면 가져오세요,<br>없으셔도 괜찮습니다</h2>
+  <div class="card row"><span class="num">1</span><p>예전 전시 때 찍어둔 작품 사진</p></div>
+  <div class="card row"><span class="num">2</span><p>그림 원본이 지금 어디에 있는지</p></div>
+  <div class="card row"><span class="num">3</span><p>예전 전시 팸플릿, 신문·방송 기사</p></div>
+  <div class="card row"><span class="num">4</span><p>장애인복지카드, 협회 회원 여부</p></div>
+  <div class="card row"><span class="num">5</span><p>앞으로 연락하기 편하신 방법</p></div>
+</div></section>
+
 <section id="s8" class="slide light"><div class="inner">
   <p class="eyebrow">앞으로의 절차</p>
   <h2>서두르지 않고,<br>매 단계마다 확인받으며</h2>
   <div class="flow">
     <div class="flowbox"><span class="num">1</span>확인·상의</div>
     <span class="arrow">→</span>
-    <div class="flowbox"><span class="num">2</span>촬영·정리</div>
+    <div class="flowbox"><span class="num">2</span>사진·자료 확인</div>
     <span class="arrow">→</span>
-    <div class="flowbox"><span class="num">3</span>온라인 준비</div>
+    <div class="flowbox"><span class="num">3</span>웹페이지로 알리기</div>
     <span class="arrow">→</span>
-    <div class="flowbox"><span class="num">4</span>시범 운영</div>
+    <div class="flowbox"><span class="num">4</span>공공기관 알아보기</div>
     <span class="arrow">→</span>
-    <div class="flowbox last"><span class="num">5</span>정식 공개</div>
+    <div class="flowbox last"><span class="num">5</span>나중에 소장 확인증</div>
   </div>
-  <p class="muted">계약서(정산 비율, 권리 관계 등)는 변호사님 도움을 받아 이해하기 쉬운 말로 함께 설명해드리겠습니다.</p>
+  <p class="muted">일정은 작가님 편하신 대로 맞춥니다. 공개는 작가님이 확인하신 뒤에만 합니다.</p>
 </div></section>
 
 <section id="s9" class="slide dark"><div class="inner">
@@ -167,7 +215,7 @@
 
 </div>
 
-<a href="index.html" style="position:fixed; left:18px; top:18px; z-index:20; font-size:13px; color:#a89c8a; text-decoration:none; background:rgba(0,0,0,.35); padding:6px 12px; border-radius:999px;">← MIND'S EYE</a>
+<a href="index.html" class="backlink" style="position:fixed; left:18px; top:18px; z-index:20; font-size:13px; color:#a89c8a; text-decoration:none; background:rgba(0,0,0,.35); padding:6px 12px; border-radius:999px;">← MIND'S EYE</a>
 <div class="navdots" id="navdots"></div>
 <div class="navhint" id="navhint">↑↓ 또는 스와이프로 이동 · 1 / 9</div>
 
