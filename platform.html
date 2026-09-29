@@ -184,7 +184,10 @@
     <form class="order-form" id="orderForm">
       <input type="text" id="collectorName" placeholder="소장하실 분 성함" required>
       <input type="text" id="collectorContact" placeholder="연락처(카톡 또는 전화, 시연용이라 저장만 됨)" required>
-      <button class="btn" type="submit">소장 신청하기 (시연)</button>
+      <div style="display:flex; gap:10px;">
+        <button class="btn" type="submit">소장 신청하기 (시연)</button>
+        <button class="btn btn-ghost" type="button" id="orderCancel">취소</button>
+      </div>
     </form>
   </div>
 </section>
@@ -346,6 +349,12 @@
     document.getElementById('orderPanel').style.display = 'block';
     document.getElementById('orderPanel').scrollIntoView({ behavior:'smooth', block:'center' });
   }
+
+  document.getElementById('orderCancel').addEventListener('click', function () {
+    document.getElementById('orderForm').reset();
+    document.getElementById('orderPanel').style.display = 'none';
+    pendingEditionId = null;
+  });
 
   document.getElementById('orderForm').addEventListener('submit', function (e) {
     e.preventDefault();
