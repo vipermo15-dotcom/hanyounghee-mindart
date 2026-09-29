@@ -268,6 +268,12 @@
     { key:'original', label:'원화 자체', qty:1, price:0 } // 0 = "문의" (가격 미정, TBD)
   ];
 
+  function escapeHTML(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
   function loadDB() {
     try {
       var raw = localStorage.getItem(STORE_KEY);
@@ -392,7 +398,7 @@
       tr.innerHTML =
         '<td>' + when + '</td>' +
         '<td>' + aw.title + ' · ' + ed.label + '</td>' +
-        '<td>' + o.collectorName + '</td>' +
+        '<td>' + escapeHTML(o.collectorName) + '</td>' +
         '<td><span class="' + statusClass(o.status) + '">' + o.status + '</span></td>' +
         '<td>' + actionCell + '</td>';
       tbody.appendChild(tr);
@@ -439,7 +445,7 @@
         '<div class="meta">' +
           '<div style="font-size:12px; letter-spacing:.06em; color:#E0745F; font-weight:700;">소장 확인증 · 시연</div>' +
           '<h3 style="font-size:18px; margin-top:4px;">' + aw.title + '</h3>' +
-          '<p style="margin-top:4px; font-size:13px; color:#D8CCBE;">' + ed.label + ' · 소장자: ' + order.collectorName + '</p>' +
+          '<p style="margin-top:4px; font-size:13px; color:#D8CCBE;">' + ed.label + ' · 소장자: ' + escapeHTML(order.collectorName) + '</p>' +
           '<p class="code">' + c.verifyCode + '</p>' +
         '</div>';
       wrap.appendChild(card);
