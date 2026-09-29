@@ -87,7 +87,7 @@
 </head>
 <body>
 
-<div class="deck" id="deck">
+<main class="deck" id="deck" tabindex="0" aria-label="슬라이드 본문 — 화살표 키나 스와이프로 이동">
 
 <section id="s1" class="slide dark"><div class="inner">
   <p class="eyebrow">MIND ART · 2026. 10. 6</p>
@@ -217,11 +217,11 @@
   <h2>감사합니다.</h2>
 </div></section>
 
-</div>
 
 <a href="index.html" class="backlink" style="position:fixed; left:18px; top:18px; z-index:20; font-size:13px; color:var(--accent-soft); text-decoration:none; background:var(--dark); padding:6px 12px; border-radius:999px;">← MIND'S EYE</a>
 <div class="navdots" id="navdots"></div>
 <div class="navhint" id="navhint">↑↓ 또는 스와이프로 이동 · 1 / 9</div>
+</main>
 
 <script>
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
@@ -231,6 +231,7 @@
 
   slides.forEach(function (s, i) {
     var b = document.createElement('button');
+    b.setAttribute('aria-label', (i + 1) + '번 슬라이드로 이동');
     b.addEventListener('click', function () { s.scrollIntoView({ behavior: 'smooth' }); });
     dotsWrap.appendChild(b);
   });

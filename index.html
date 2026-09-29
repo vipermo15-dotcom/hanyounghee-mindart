@@ -23,7 +23,7 @@
     --ink: #222222;
     --body-text: #3F3F3F;
     --muted: #6A6A6A;
-    --muted-soft: #929292;
+    --muted-soft: #666666;
     --hairline: #DDDDDD;
     --hairline-soft: #EBEBEB;
     --border-strong: #C1C1C1;
@@ -124,7 +124,7 @@
   .icon-button-outline:hover { border-color: var(--primary); color: var(--primary); }
 
   .preview-flag {
-    max-width: 760px; margin: 16px auto 0; padding-inline: 20px;
+    margin-top: 16px;
   }
   .preview-flag .inner {
     background: var(--surface-soft);
@@ -261,7 +261,7 @@
     .top-inner { padding-inline: 16px; gap: 8px; }
     .icon-button-outline { padding: 8px 12px; font-size: 13px; height: 36px; }
     .wordmark { font-size: 15px; }
-    main.wrap, .preview-flag, footer .wrap { padding-inline: 16px; }
+    main.wrap, footer .wrap { padding-inline: 16px; }
     .quote-block { padding: 20px; }
     form.waitlist { padding: 14px; }
     form.waitlist button { width: 100%; }
@@ -285,13 +285,13 @@
   </div>
 </header>
 
-<div class="preview-flag">
-  <div class="inner">
-    <strong>미리보기 페이지입니다.</strong> 아직 공개되지 않았으며, 판매나 결제 기능은 포함되어 있지 않습니다. 작가님 확인 후 정식 내용으로 교체될 예정입니다.
-  </div>
-</div>
-
 <main class="wrap" style="padding-inline:20px;">
+  <div class="preview-flag" role="note">
+    <div class="inner">
+      <strong>미리보기 페이지입니다.</strong> 아직 공개되지 않았으며, 판매나 결제 기능은 포함되어 있지 않습니다. 작가님 확인 후 정식 내용으로 교체될 예정입니다.
+    </div>
+  </div>
+
   <section class="hero">
     <p class="eyebrow">MIND ART · GENESIS COLLECTION 01 · 공개 예정</p>
     <h1 class="serif-accent">마음의 눈으로<br>본 세상</h1>
