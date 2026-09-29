@@ -190,6 +190,20 @@
   </p>
 </section>
 
+<section id="grants">
+  <p class="eyebrow">참고 · 정부·지자체·협회 지원사업 매칭 (2026-09-29 조사)</p>
+  <h2 class="title">공모·지원사업으로 판로를 넓히는 방법</h2>
+  <p class="sub">NFT와는 별개로, 작가님 활동지역(수원·고양·양평)과 전국 단위에 실제로 있는 지원사업입니다. 조사 시점 기준 대부분 마감돼 있어, 다음 공고 시즌(2027년 1~3월)을 미리 준비하는 것이 현실적인 목표입니다.</p>
+  <table class="ops" id="grantsTable">
+    <thead><tr><th>기관</th><th>사업</th><th>주기</th><th>지금 상태</th></tr></thead>
+    <tbody id="grantsBody"></tbody>
+  </table>
+  <p class="form-note" style="margin-top:14px;">
+    ※ NFT·디지털소장을 명시적으로 지원하는 정부·지자체 사업은 확인되지 않았습니다. 이음아트플랫폼의 "융복합 창작 지원"(AR·AI 등 신기술)이 관련 가능성이 있는 카테고리이지만, NFT가 대상이라고 명시된 적은 없어 신청 전 담당 기관에 직접 문의가 필요합니다 — 추정만으로 서류를 쓰지 않습니다.<br>
+    ※ 모든 개인 신청 사업에 장애인등록증·복지카드 증빙이 공통으로 필요합니다 — 10/6 준비안내 4번 항목과 그대로 연결됩니다.
+  </p>
+</section>
+
 <section id="checklist">
   <p class="eyebrow">참고 · 실제 운영 전환 체크리스트</p>
   <h2 class="title">이 시연이 실제 서비스가 되려면</h2>
@@ -408,6 +422,27 @@
     });
   }
 
+  // ---- 참고: 정부·지자체·협회 지원사업 매칭 (2026-09-29 웹조사, 정부지자체협회_지원사업_정밀검토.md 반영) ----
+  var GRANTS = [
+    { org:'문체부·한국장애인문화예술원', biz:'장애예술 활성화 지원사업 (미술 아트페어 포함)', cycle:'매년 1~2월 공고', status:'종료 · 2027년 1월 공고 대기' },
+    { org:'문체부·한국장애인문화예술원', biz:'장애예술인 융복합 창작 지원 (AR·AI 등 신기술)', cycle:'매년 7~8월 접수', status:'종료 · NFT 포함 여부 미확인' },
+    { org:'수원문화재단', biz:'형형색색 문화예술지원 · 경기예술활동지원 · 유망예술가 지원 등', cycle:'1월 공고 → 3월 결과', status:'종료 · 2027년 1월 대기' },
+    { org:'수원문화재단', biz:'스타필드 수원 작은미술관 참여작가 모집 (전시공간 제공)', cycle:'연 2회(1차·2차)', status:'다음 차수 공고 확인 필요' },
+    { org:'양평문화재단', biz:'양평 예술인 성장지원 · 경기예술활동지원(모든예술31)', cycle:'3~5월 접수', status:'종료 · 2027년 대기' },
+    { org:'고양문화재단', biz:'고양문화다리 문화예술진흥 지원사업', cycle:'2월 공고, 3월 접수', status:'종료 · 2027년 대기' },
+    { org:'서울문화재단', biz:'장애예술인 창작활성화지원 (최대 2천만원)', cycle:'연중(1/1~12/31)', status:'서울 활동요건 충족여부 확인 필요' },
+    { org:'이음아트플랫폼', biz:'우선구매제도 등록 (공공기관 847곳 대상)', cycle:'상시 등록', status:'한영희 작가님 등록 여부부터 확인' }
+  ];
+  function renderGrants() {
+    var tbody = document.getElementById('grantsBody');
+    tbody.innerHTML = '';
+    GRANTS.forEach(function (g) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + g.org + '</td><td>' + g.biz + '</td><td>' + g.cycle + '</td><td style="color:var(--wait); font-weight:600;">' + g.status + '</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
   // ---- 참고: 국내 사례 기반 판매 채널 옵션 (2026 국내 NFT 시장조사 반영) ----
   var CHANNELS = [
     { done:true, label:'① MIND ART 자체 플랫폼 — 작가 직접 정산 (기본, 지금 시연 중)', note:'중개 수수료 없이 작가님께 직접 정산. 지금 시연하는 방식이 이 기본 구조입니다.' },
@@ -451,6 +486,7 @@
   renderGrid();
   renderOrders();
   renderCerts();
+  renderGrants();
   renderChannels();
   renderChecklist();
 })();
