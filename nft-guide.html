@@ -48,10 +48,14 @@
   .navdots button { width: 8px; height: 8px; border-radius: 999px; border: none; background: #a89c8a; opacity: .5; cursor: pointer; padding: 0; }
   .navdots button.active { opacity: 1; background: var(--accent); width: 10px; height: 10px; }
   .navhint { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); font-size: 12px; color: #a89c8a; z-index: 20; background: rgba(0,0,0,.35); padding: 6px 14px; border-radius: 999px; }
-  .backlink { position: fixed; left: 18px; top: 18px; z-index: 20; font-size: 13px; color: #a89c8a; text-decoration: none; background: rgba(0,0,0,.35); padding: 6px 12px; border-radius: 999px; }
+  .backlink { position: fixed; left: 18px; top: 18px; z-index: 20; font-size: 13px; color: var(--accent-soft); text-decoration: none; background: var(--dark); padding: 6px 12px; border-radius: 999px; }
   .highlight h3, .highlight h2 { color: var(--dark-ink); }
   .banner .muted, .banner p.muted { color: var(--dark-muted); }
-  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } .navdots { display: none; } }
+  @media (max-width: 640px) {
+    .grid2 { grid-template-columns: 1fr; } .navdots { display: none; }
+    section.slide { overflow-y: auto; justify-content: flex-start; padding-top: 76px; padding-bottom: 64px; }
+    .navhint { white-space: nowrap; }
+  }
 
   @media print {
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
