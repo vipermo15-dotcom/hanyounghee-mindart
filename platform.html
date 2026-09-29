@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MIND ART 플랫폼 — 시연용</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --canvas: #FFFFFF; --surface-soft: #F7F7F7; --surface-strong: #F2F2F2;
+    --ink: #222222; --body-text: #3F3F3F; --muted: #6A6A6A; --muted-soft: #929292;
+    --hairline: #DDDDDD; --hairline-soft: #EBEBEB; --border-strong: #C1C1C1;
+    --primary: #A6332A; --primary-active: #8A2A22; --primary-disabled: #EAD1CC; --on-primary: #FFFFFF;
+    --dark: #2A211B; --dark-ink: #F3ECE3;
+    --ok: #2E7D4F; --wait: #B8860B;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background: var(--canvas); color: var(--ink);
+    font-family: 'Noto Sans KR', -apple-system, sans-serif; line-height:1.6;
+  }
+  h1,h2,h3 { font-family:'Noto Serif KR', serif; margin:0; font-weight:600; text-wrap:balance; }
+  p { margin:0; }
+  .wrap { max-width: 920px; margin:0 auto; padding-inline:20px; }
+
+  header.top {
+    position: sticky; top:0; background: color-mix(in srgb, var(--canvas) 92%, transparent);
+    backdrop-filter: blur(6px); border-bottom:1px solid var(--hairline); z-index:30;
+  }
+  .top-inner { max-width:920px; margin:0 auto; padding:14px 20px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .wordmark { font-family:'Noto Serif KR', serif; font-weight:700; font-size:16px; }
+  .backlink { font-size:13px; color:var(--muted); text-decoration:none; }
+  .backlink:hover { color:var(--primary); }
+
+  .demo-banner {
+    background: var(--dark); color: var(--dark-ink);
+    padding: 12px 20px; font-size: 13.5px; text-align:center;
+  }
+  .demo-banner b { color:#E0745F; }
+
+  section { padding-block:40px; max-width:920px; margin:0 auto; padding-inline:20px; }
+  section + section { border-top:1px solid var(--hairline-soft); }
+  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--primary); }
+  h2.title { font-size:22px; margin-top:6px; }
+  .sub { margin-top:10px; color:var(--muted); font-size:14.5px; max-width:64ch; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:16px; margin-top:22px; }
+  .card {
+    background:var(--canvas); border:1px solid var(--hairline); border-radius:14px; overflow:hidden;
+    cursor:pointer; transition:box-shadow .15s, transform .1s; text-align:left; font:inherit; color:inherit;
+  }
+  .card:hover { box-shadow:0 4px 14px rgba(0,0,0,.1); transform:translateY(-1px); }
+  .card .art { aspect-ratio:1/1; background:var(--g); position:relative; }
+  .card .art .flag { position:absolute; top:9px; left:9px; background:var(--canvas); font-size:11px; font-weight:600; padding:3px 9px; border-radius:999px; }
+  .card .cap { padding:12px 14px; }
+  .card .cap b { display:block; font-size:14px; }
+  .card .cap span { font-size:12px; color:var(--muted); }
+
+  .panel { background:var(--surface-soft); border:1px solid var(--hairline); border-radius:16px; padding:22px; margin-top:20px; }
+  .edition-list { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:14px; margin-top:16px; }
+  .edition { background:var(--canvas); border:1px solid var(--hairline); border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:8px; }
+  .edition h4 { font-size:14px; font-weight:700; margin:0; }
+  .edition .price { font-size:18px; font-weight:700; color:var(--primary); }
+  .edition .stock { font-size:12px; color:var(--muted); }
+  .edition button { margin-top:auto; }
+
+  button.btn, .btn {
+    font:inherit; font-weight:500; font-size:14px; cursor:pointer;
+    background:var(--primary); color:var(--on-primary); border:1px solid var(--primary);
+    border-radius:8px; padding:10px 16px; text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  }
+  button.btn:disabled { background:var(--primary-disabled); border-color:var(--primary-disabled); color:#fff; cursor:not-allowed; }
+  button.btn-ghost { background:var(--canvas); color:var(--ink); border:1px solid var(--hairline); }
+
+  form.order-form { display:flex; flex-direction:column; gap:10px; margin-top:14px; max-width:420px; }
+  form.order-form input { font:inherit; font-size:14px; padding:10px 12px; border:1px solid var(--hairline); border-radius:8px; }
+  .form-note { font-size:12px; color:var(--muted); }
+
+  table.ops { width:100%; border-collapse:collapse; margin-top:16px; font-size:13.5px; }
+  table.ops th, table.ops td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--hairline-soft); }
+  table.ops th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; }
+  .status-pill { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+  .status-요청됨 { background:#F2E7D5; color:var(--wait); }
+  .status-확인중 { background:#F2E7D5; color:var(--wait); }
+  .status-발급완료 { background:#DCEEE1; color:var(--ok); }
+
+  .cert-card {
+    background:var(--dark); color:var(--dark-ink); border-radius:18px; padding:28px; margin-top:18px;
+    display:flex; gap:22px; flex-wrap:wrap; align-items:center;
+  }
+  .cert-card .qr { background:#fff; padding:10px; border-radius:10px; flex:none; }
+  .cert-card .qr canvas, .cert-card .qr svg { display:block; width:120px; height:120px; }
+  .cert-card .meta { flex:1 1 200px; min-width:180px; }
+  .cert-card .meta .code { font-family:monospace; font-size:13px; margin-top:6px; color:#E0745F; word-break:break-all; }
+
+  .checklist { display:flex; flex-direction:column; gap:0; margin-top:16px; }
+  .check-row { display:flex; align-items:flex-start; gap:12px; padding:11px 0; border-top:1px solid var(--hairline-soft); font-size:14px; }
+  .check-row:last-child { border-bottom:1px solid var(--hairline-soft); }
+  .check-dot { width:9px; height:9px; border-radius:999px; margin-top:6px; flex:none; }
+  .check-done .check-dot { background:var(--ok); }
+  .check-pending .check-dot { background:var(--wait); }
+  .check-row b { display:block; }
+  .check-row span.note { color:var(--muted); font-size:12.5px; }
+
+  .empty { color:var(--muted-soft); font-size:14px; padding:18px 0; text-align:center; }
+  .hidden { display:none !important; }
+  #detail { display:none; }
+  #detail.open { display:block; }
+
+  footer { padding:32px 20px 56px; text-align:center; font-size:12.5px; color:var(--muted-soft); }
+
+  @media (max-width:480px) {
+    .cert-card { flex-direction:column; text-align:center; }
+    .cert-card .meta { text-align:left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  <b>시연용 플랫폼입니다.</b> 실제 결제·민팅·법적 계약이 발생하지 않습니다. 작가님 확인 전까지 정식 운영으로 전환하지 않습니다.
+</div>
+
+<header class="top">
+  <div class="top-inner">
+    <span class="wordmark">MIND ART · 플랫폼 시연</span>
+    <a class="backlink" href="index.html">← MIND'S EYE 소개 페이지</a>
+  </div>
+</header>
+
+<section id="intro">
+  <p class="eyebrow">시연용 · Genesis Collection 01</p>
+  <h2 class="title">한영희 작가 — 소장 신청 흐름 시연</h2>
+  <p class="sub">
+    실제 서비스가 어떻게 동작할지 미리 보여드리기 위한 작동 데모입니다. 이 화면에서 만든 주문·인증서는 이 브라우저 안에만
+    저장되며(서버로 전송되지 않음), 새로고침해도 남아있지만 다른 기기·다른 사람에게는 보이지 않습니다.
+  </p>
+</section>
+
+<section id="collection">
+  <p class="eyebrow">1 · 작품 선택</p>
+  <h2 class="title">MIND'S EYE 컬렉션</h2>
+  <p class="sub">작품을 선택하면 소장 방식(에디션)을 고를 수 있습니다.</p>
+  <div class="grid" id="artworkGrid"></div>
+</section>
+
+<section id="detail">
+  <p class="eyebrow">2 · 소장 방식 선택</p>
+  <h2 class="title" id="detailTitle"></h2>
+  <p class="sub" id="detailStory"></p>
+  <div class="edition-list" id="editionList"></div>
+
+  <div class="panel" id="orderPanel" style="display:none;">
+    <h3 style="font-size:16px;">소장 신청서 (시연)</h3>
+    <p class="form-note">실제 결제는 없습니다. 이름과 연락 방법만 남겨주시면, 관리자 화면에서 "확인 처리" 후 인증서가 발급됩니다.</p>
+    <form class="order-form" id="orderForm">
+      <input type="text" id="collectorName" placeholder="소장하실 분 성함" required>
+      <input type="text" id="collectorContact" placeholder="연락처(카톡 또는 전화, 시연용이라 저장만 됨)" required>
+      <button class="btn" type="submit">소장 신청하기 (시연)</button>
+    </form>
+  </div>
+</section>
+
+<section id="opsboard">
+  <p class="eyebrow">3 · 운영자 화면 미리보기</p>
+  <h2 class="title">신청 현황판</h2>
+  <p class="sub">실제 서비스에서는 운영자(사람)가 이 화면에서 신청을 확인하고 승인합니다. 여기서는 "확인 처리" 버튼으로 그 과정을 시연합니다.</p>
+  <table class="ops" id="ordersTable">
+    <thead><tr><th>신청일시</th><th>작품/에디션</th><th>소장 신청자</th><th>상태</th><th></th></tr></thead>
+    <tbody id="ordersBody"></tbody>
+  </table>
+  <p class="empty hidden" id="ordersEmpty">아직 신청이 없습니다. 위에서 작품을 선택해 소장 신청을 해보세요.</p>
+</section>
+
+<section id="certs">
+  <p class="eyebrow">4 · 발급된 소장 확인증</p>
+  <h2 class="title">내 인증서 (이 브라우저 기준)</h2>
+  <div id="certList"></div>
+  <p class="empty hidden" id="certsEmpty">아직 발급된 인증서가 없습니다. 운영자 화면에서 "확인 처리"를 눌러보세요.</p>
+</section>
+
+<section id="checklist">
+  <p class="eyebrow">참고 · 실제 운영 전환 체크리스트</p>
+  <h2 class="title">이 시연이 실제 서비스가 되려면</h2>
+  <p class="sub">Launch Gate 8개 항목 기준입니다. 지금은 전부 시연/보류 상태이며, 하나씩 실제로 확인·계약된 뒤에만 정식 전환합니다.</p>
+  <div class="checklist" id="checklistWrap"></div>
+</section>
+
+<footer>
+  MIND ART · 이 페이지는 내부 시연용이며 실제 판매·결제·민팅 기능을 포함하지 않습니다.<br>
+  운영 확장(정부·지자체·협회 지원사업 연계 등)은 <a href="index.html" style="color:var(--primary);">MIND'S EYE 소개 페이지</a>에서 이어지는 별도 자료를 참고하세요.
+</footer>
+
+<script src="vendor-qrcode.js"></script>
+<script>
+(function () {
+  'use strict';
+  var STORE_KEY = 'mindart_demo_v1';
+
+  // ---- 시드 데이터 (index.html 스와치와 동일한 5개 작품) ----
+  var SEED_ARTWORKS = [
+    { id:'aw1', title:'바닷길과 한라산', story:'딸이 찍어서 보내준 사진 속 한라산을, 손주들과 자주 걷던 바닷길 위에 겹쳐 그린 작품입니다. (이야기 확정 전 — 작가님 확인 필요)', g:'linear-gradient(160deg, #7a9e8e, #3f5c6b)' },
+    { id:'aw2', title:'벚꽃', story:'봄날의 기억을 담은 작품입니다. (이야기 확정 전 — 작가님 확인 필요)', g:'linear-gradient(160deg, #f3c8d1, #e8a7b9)' },
+    { id:'aw3', title:'할머니의 꽃밭', story:'가족의 기억을 재구성한 작품입니다. (이야기 확정 전 — 작가님 확인 필요)', g:'linear-gradient(160deg, #e4b74a, #c97b3d)' },
+    { id:'aw4', title:'엄마 생각', story:'가족의 기억을 재구성한 작품입니다. (이야기 확정 전 — 작가님 확인 필요)', g:'linear-gradient(160deg, #f7d9c4, #e0a98c)' },
+    { id:'aw5', title:'동백꽃', story:'가족의 기억을 재구성한 작품입니다. (이야기 확정 전 — 작가님 확인 필요)', g:'linear-gradient(160deg, #a6332a, #5c1f16)' }
+  ];
+  // 0003_editions_atomic 스키마 반영: quantity_total/quantity_available, price는 전부 데모 예시값(TBD)
+  var EDITION_TYPES = [
+    { key:'digital', label:'디지털 소장', qty:30, price:30000 },
+    { key:'digital_cert', label:'디지털 + 소장확인증', qty:15, price:80000 },
+    { key:'signed_print', label:'서명 프린트', qty:5, price:250000 },
+    { key:'original', label:'원화 자체', qty:1, price:0 } // 0 = "문의" (가격 미정, TBD)
+  ];
+
+  function loadDB() {
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    var db = { editions:{}, orders:[], certs:[], auditLog:[] };
+    SEED_ARTWORKS.forEach(function (aw) {
+      EDITION_TYPES.forEach(function (et) {
+        var edId = aw.id + '_' + et.key;
+        db.editions[edId] = { id:edId, artworkId:aw.id, type:et.key, label:et.label, price:et.price, qtyTotal:et.qty, qtyAvailable:et.qty };
+      });
+    });
+    saveDB(db);
+    return db;
+  }
+  function saveDB(db) { try { localStorage.setItem(STORE_KEY, JSON.stringify(db)); } catch (e) {} }
+  function log(db, action, detail) { db.auditLog.push({ ts:new Date().toISOString(), actor:'demo-user', action:action, detail:detail }); }
+
+  var db = loadDB();
+  var currentArtworkId = null;
+
+  function fmtWon(n) { return n > 0 ? n.toLocaleString('ko-KR') + '원 (데모 가격 예시)' : '가격 문의 (TBD)'; }
+
+  // ---- 1. 컬렉션 그리드 ----
+  function renderGrid() {
+    var grid = document.getElementById('artworkGrid');
+    grid.innerHTML = '';
+    SEED_ARTWORKS.forEach(function (aw) {
+      var btn = document.createElement('button');
+      btn.className = 'card';
+      btn.innerHTML =
+        '<div class="art" style="--g:' + aw.g + ';"><span class="flag">시연용</span></div>' +
+        '<div class="cap"><b>' + aw.title + '</b><span>소장 방식 보기 →</span></div>';
+      btn.addEventListener('click', function () { openDetail(aw.id); });
+      grid.appendChild(btn);
+    });
+  }
+
+  // ---- 2. 상세 + 에디션 선택 ----
+  function openDetail(artworkId) {
+    currentArtworkId = artworkId;
+    var aw = SEED_ARTWORKS.find(function (a) { return a.id === artworkId; });
+    document.getElementById('detailTitle').textContent = aw.title;
+    document.getElementById('detailStory').textContent = aw.story;
+    var list = document.getElementById('editionList');
+    list.innerHTML = '';
+    EDITION_TYPES.forEach(function (et) {
+      var ed = db.editions[artworkId + '_' + et.key];
+      var box = document.createElement('div');
+      box.className = 'edition';
+      var soldOut = ed.qtyAvailable <= 0;
+      box.innerHTML =
+        '<h4>' + ed.label + '</h4>' +
+        '<div class="price">' + fmtWon(ed.price) + '</div>' +
+        '<div class="stock">' + (soldOut ? '마감(시연)' : ('남음: ' + ed.qtyAvailable + ' / ' + ed.qtyTotal)) + '</div>' +
+        '<button class="btn' + (soldOut ? '' : '') + '" data-ed="' + ed.id + '" ' + (soldOut ? 'disabled' : '') + '>이 방식으로 신청</button>';
+      list.appendChild(box);
+    });
+    list.querySelectorAll('button[data-ed]').forEach(function (b) {
+      b.addEventListener('click', function () { selectEdition(b.getAttribute('data-ed')); });
+    });
+    document.getElementById('detail').classList.add('open');
+    document.getElementById('orderPanel').style.display = 'none';
+    document.getElementById('detail').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  var pendingEditionId = null;
+  function selectEdition(edId) {
+    pendingEditionId = edId;
+    document.getElementById('orderPanel').style.display = 'block';
+    document.getElementById('orderPanel').scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+
+  document.getElementById('orderForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!pendingEditionId) return;
+    var ed = db.editions[pendingEditionId];
+    // 0003_editions_atomic 원칙 반영: 재고 없으면 차단
+    if (ed.qtyAvailable <= 0) { alert('죄송합니다, 이 에디션은 시연상 마감되었습니다.'); return; }
+    var name = document.getElementById('collectorName').value.trim();
+    var contact = document.getElementById('collectorContact').value.trim();
+    if (!name || !contact) return;
+
+    ed.qtyAvailable -= 1; // 원자적 차감(시연)
+    var order = {
+      id: 'ord_' + Date.now().toString(36),
+      editionId: ed.id,
+      artworkId: currentArtworkId,
+      collectorName: name,
+      collectorContact: contact,
+      status: '요청됨',
+      createdAt: new Date().toISOString()
+    };
+    db.orders.unshift(order);
+    log(db, 'order_created', order.id);
+    saveDB(db);
+    document.getElementById('orderForm').reset();
+    document.getElementById('orderPanel').style.display = 'none';
+    pendingEditionId = null;
+    openDetail(currentArtworkId); // 재고 갱신 반영
+    renderOrders();
+    document.getElementById('opsboard').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+
+  // ---- 3. 운영자 현황판 ----
+  function statusClass(s) { return 'status-pill status-' + s; }
+  function renderOrders() {
+    var tbody = document.getElementById('ordersBody');
+    tbody.innerHTML = '';
+    document.getElementById('ordersEmpty').classList.toggle('hidden', db.orders.length > 0);
+    db.orders.forEach(function (o) {
+      var aw = SEED_ARTWORKS.find(function (a) { return a.id === o.artworkId; });
+      var ed = db.editions[o.editionId];
+      var tr = document.createElement('tr');
+      var when = new Date(o.createdAt).toLocaleString('ko-KR', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+      var actionCell = '';
+      if (o.status === '요청됨') {
+        actionCell = '<button class="btn btn-ghost" data-confirm="' + o.id + '" style="font-size:12px; padding:6px 10px;">확인 처리 (시연)</button>';
+      } else if (o.status === '발급완료') {
+        actionCell = '<span style="font-size:12px; color:var(--ok);">✓ 완료</span>';
+      }
+      tr.innerHTML =
+        '<td>' + when + '</td>' +
+        '<td>' + aw.title + ' · ' + ed.label + '</td>' +
+        '<td>' + o.collectorName + '</td>' +
+        '<td><span class="' + statusClass(o.status) + '">' + o.status + '</span></td>' +
+        '<td>' + actionCell + '</td>';
+      tbody.appendChild(tr);
+    });
+    tbody.querySelectorAll('button[data-confirm]').forEach(function (b) {
+      b.addEventListener('click', function () { confirmOrder(b.getAttribute('data-confirm')); });
+    });
+  }
+
+  function confirmOrder(orderId) {
+    var order = db.orders.find(function (o) { return o.id === orderId; });
+    if (!order || order.status !== '요청됨') return;
+    order.status = '발급완료';
+    var verifyCode = ('MA-' + order.id + '-' + Math.random().toString(36).slice(2, 8)).toUpperCase();
+    var cert = {
+      id: 'cert_' + Date.now().toString(36),
+      orderId: order.id,
+      verifyCode: verifyCode,
+      issuedAt: new Date().toISOString()
+    };
+    db.certs.unshift(cert);
+    log(db, 'cert_issued', cert.id + ' for ' + order.id);
+    saveDB(db);
+    renderOrders();
+    renderCerts();
+    document.getElementById('certs').scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  // ---- 4. 인증서 ----
+  function renderCerts() {
+    var wrap = document.getElementById('certList');
+    wrap.innerHTML = '';
+    document.getElementById('certsEmpty').classList.toggle('hidden', db.certs.length > 0);
+    db.certs.forEach(function (c) {
+      var order = db.orders.find(function (o) { return o.id === c.orderId; });
+      if (!order) return;
+      var aw = SEED_ARTWORKS.find(function (a) { return a.id === order.artworkId; });
+      var ed = db.editions[order.editionId];
+      var card = document.createElement('div');
+      card.className = 'cert-card';
+      var qrId = 'qr_' + c.id;
+      card.innerHTML =
+        '<div class="qr" id="' + qrId + '"></div>' +
+        '<div class="meta">' +
+          '<div style="font-size:12px; letter-spacing:.06em; color:#E0745F; font-weight:700;">소장 확인증 · 시연</div>' +
+          '<h3 style="font-size:18px; margin-top:4px;">' + aw.title + '</h3>' +
+          '<p style="margin-top:4px; font-size:13px; color:#D8CCBE;">' + ed.label + ' · 소장자: ' + order.collectorName + '</p>' +
+          '<p class="code">' + c.verifyCode + '</p>' +
+        '</div>';
+      wrap.appendChild(card);
+      try {
+        var qr = qrcode(0, 'M');
+        qr.addData('MIND-ART-DEMO-VERIFY:' + c.verifyCode);
+        qr.make();
+        document.getElementById(qrId).innerHTML = qr.createSvgTag(4);
+      } catch (e) {}
+    });
+  }
+
+  // ---- 참고: 실제 운영 전환 체크리스트 (Launch Gate 8개) ----
+  var CHECKLIST = [
+    { done:false, label:'① 작가 본인 최종 확인', note:'10/6 미팅에서 시작 예정' },
+    { done:false, label:'② 운영구조 결정 (대리운영 vs 접근성 UI)', note:'미정' },
+    { done:false, label:'③ 변호사 계약서 서명', note:'초안만 있음 (작가계약서_초안.md)' },
+    { done:false, label:'④ 세무사 확인', note:'미착수' },
+    { done:false, label:'⑤ 45점 실물 인벤토리 소재 확인', note:'실존 확인됨(에이블뉴스), 소재는 10/6 최우선 질문' },
+    { done:false, label:'⑥ NFT/결제 Provider 계약', note:'헥토 월렛원(NFT) · 포트원 V2(결제) 견적문의 전' },
+    { done:false, label:'⑦ 실제 백엔드(Supabase) 연동', note:'SQL 9개 설계 완료, 실제 프로젝트 미연결 — 이 데모는 로컬 모의 데이터' },
+    { done:false, label:'⑧ 랜딩페이지 실측 테스트', note:'게시됨, 실사용자 테스트 아직 없음' }
+  ];
+  function renderChecklist() {
+    var wrap = document.getElementById('checklistWrap');
+    wrap.innerHTML = '';
+    CHECKLIST.forEach(function (item) {
+      var row = document.createElement('div');
+      row.className = 'check-row ' + (item.done ? 'check-done' : 'check-pending');
+      row.innerHTML = '<span class="check-dot"></span><div><b>' + item.label + '</b><span class="note">' + item.note + '</span></div>';
+      wrap.appendChild(row);
+    });
+  }
+
+  renderGrid();
+  renderOrders();
+  renderCerts();
+  renderChecklist();
+})();
+</script>
+</body>
+</html>
